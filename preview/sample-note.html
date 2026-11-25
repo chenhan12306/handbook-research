@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>Handbook Research — CSS preview sample (not Obsidian)</title>
+  <link rel="stylesheet" href="../theme.css" />
+  <style>
+    /* Preview chrome only — not part of the published theme */
+    .preview-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      padding: 6px 12px;
+      font: 600 11px/1.4 Inter, sans-serif;
+      text-align: center;
+      background: #b45309;
+      color: #fff;
+      letter-spacing: 0.02em;
+    }
+    .preview-frame {
+      margin: 36px auto 0;
+      max-width: 920px;
+      min-height: 252px;
+      border: 1px solid var(--background-modifier-border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--background-primary);
+    }
+    .markdown-preview-view {
+      padding: 0;
+    }
+    body { margin: 0; padding: 12px; background: var(--background-secondary); }
+  </style>
+</head>
+<body class="theme-light" id="body-root">
+  <div class="preview-banner">CSS 近似预览 · 非 Obsidian 客户端实机截图</div>
+  <div class="preview-frame">
+    <div class="markdown-preview-view markdown-rendered">
+      <h1>结构力学手册 · 示例章节</h1>
+      <p>本页为<strong>通用工程演示文本</strong>，用于预览排版。正文采用衬线字体，适合长文阅读与技术查阅。</p>
+      <h2>符号与单位</h2>
+      <p>应力 <code>σ</code>、弹性模量 <code>E</code>，以及内链 [[荷载组合]] 与外链 <a class="external-link" href="#">规范摘录</a>。</p>
+      <table>
+        <thead><tr><th>符号</th><th>含义</th><th>单位</th></tr></thead>
+        <tbody>
+          <tr><td><code>F</code></td><td>轴力</td><td>kN</td></tr>
+          <tr><td><code>M</code></td><td>弯矩</td><td>kN·m</td></tr>
+        </tbody>
+      </table>
+      <blockquote><p>设计值应在明确荷载工况下复核。</p></blockquote>
+      <p><a class="tag" href="#">#research</a> <mark>高亮检索词</mark></p>
+    </div>
+  </div>
+</body>
+</html>

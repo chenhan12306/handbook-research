@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>Handbook Research — dark CSS preview (not Obsidian)</title>
+  <link rel="stylesheet" href="../theme.css" />
+  <style>
+    .preview-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      padding: 6px 12px;
+      font: 600 11px/1.4 Inter, sans-serif;
+      text-align: center;
+      background: #b45309;
+      color: #fff;
+    }
+    .preview-frame {
+      margin: 36px auto 0;
+      max-width: 920px;
+      min-height: 252px;
+      border: 1px solid var(--background-modifier-border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--background-primary);
+    }
+    body { margin: 0; padding: 12px; background: var(--background-secondary); }
+  </style>
+</head>
+<body class="theme-dark">
+  <div class="preview-banner">CSS 近似预览 · 非 Obsidian 客户端 · Dark</div>
+  <div class="preview-frame">
+    <div class="markdown-preview-view markdown-rendered">
+      <h1>结构力学手册 · 示例章节</h1>
+      <p>深色「暖炭」模式演示。正文与表格样式与浅色一致，仅调色板不同。</p>
+      <h2>符号表</h2>
+      <table>
+        <thead><tr><th>符号</th><th>含义</th></tr></thead>
+        <tbody>
+          <tr><td><code>σ</code></td><td>正应力</td></tr>
+          <tr><td><code>ε</code></td><td>应变</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
