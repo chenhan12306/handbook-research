@@ -83,19 +83,20 @@ An Obsidian theme for engineering handbooks and technical notes—tuned for long
 
 | 文件 | 说明 |
 |------|------|
-| `preview/handbook-research-light-512x288.png` | **CSS 结构近似预览**（Headless Chrome 渲染 HTML 样本 + 本主题 CSS），**非** Obsidian 客户端实机截图。 |
-| `preview/sample-note-dark.html` | 深色样本 HTML（可自行在 Obsidian 或浏览器中预览）；深色 PNG 未在 CI 环境生成。 |
+| **`screenshot.png`**（根目录） | **Obsidian 实机截图**（512×288），经作者与协调员裁剪侧栏/顶栏可读信息后，对正文区域做**隐私像素化处理**；调色与布局为真实主题，但因打码**不**能反映清晰字体细节。**用于社区主题目录提交。** |
+| `preview/handbook-research-light-512x288.png` 等 | **CSS/HTML 近似预览**（非 Obsidian 客户端），仅供仓库浏览参考，**不可**代替 `screenshot.png`。 |
 
-提交社区商店前，建议在 Obsidian 1.5+ 中用演示库拍摄真实 `screenshot.png`（512×288）并置于仓库根目录。本仓库在获得实机截图前**不**将预览图冒充为商店主图。
+社区表单 **Screenshot path** 填写：`screenshot.png`（须已合并至 `main` 后再提交）。
 
 ## 仓库结构
 
 ```
 manifest.json   # 主题元数据
 theme.css       # 主题样式（自包含，无远程资源引用）
+screenshot.png  # 社区商店用实机截图（隐私打码）
 LICENSE         # MIT
 README.md       # 本文件
-preview/        # 标注清楚的 CSS 预览素材（可选）
+preview/        # CSS 近似预览（非商店主图）
 ```
 
 ## 致谢 / Credits
