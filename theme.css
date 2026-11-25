@@ -1,0 +1,1086 @@
+/* @settings
+name: Handbook Research
+id: handbook-research
+settings:
+  - id: hb-line-width
+    title: 正文行宽
+    description: 阅读视图与编辑视图的正文最大宽度；建议 900–1300 px。
+    type: variable-number-slider
+    default: 1040
+    min: 680
+    max: 1600
+    step: 20
+    format: px
+  - id: hb-image-width
+    title: 图片最大宽度
+    description: 正文插图的最大显示宽度；附录数据表可通过 hb-wide-images 放开。
+    type: variable-number-slider
+    default: 640
+    min: 400
+    max: 1200
+    step: 20
+    format: px
+  - id: hb-image-max-height
+    title: 图片最大高度
+    description: 限制竖图/长图的显示高度，避免竖图占满整屏；推荐 55–70 vh。
+    type: variable-number-slider
+    default: 62
+    min: 30
+    max: 90
+    step: 2
+    format: vh
+*/
+
+/* ==========================================================================
+   Handbook Research — Obsidian theme for engineering handbooks
+   --------------------------------------------------------------------------
+   Design goals
+   1. Long-form reading: serif body, sans-serif headings/UI, 780 px measure.
+   2. Research lookup: strong heading hierarchy, sticky table headers,
+      high-contrast search hits, compact sidebars, visible links.
+   3. Figures: clean image frames and a dedicated caption bar so that
+      “图 5-9 …” reads as a caption, not as ordinary italic text.
+   4. Math and tables: no decoration; generous spacing; horizontal scroll
+      for wide formulas/tables.
+   5. Light “warm paper” and dark “warm charcoal” palettes.
+   6. Print/PDF friendly: avoid breaking figures, tables and headings.
+
+   The theme is intentionally self-contained. It replaces the old
+   reading-enhancement snippet; do not enable both at the same time.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   0. Palette and typography tokens
+   -------------------------------------------------------------------------- */
+
+body.theme-light {
+  --background-primary: #fbf9f4;
+  --background-primary-alt: #f6f2ea;
+  --background-secondary: #f1ece1;
+  --background-secondary-alt: #e9e2d4;
+  --background-tertiary: #e3dbcb;
+  --background-modifier-border: #d8cfbd;
+  --background-modifier-border-hover: #c5b9a3;
+  --background-modifier-border-focus: #0f766e;
+  --background-modifier-hover: rgba(15, 118, 110, 0.075);
+  --background-modifier-active-hover: rgba(15, 118, 110, 0.12);
+  --background-modifier-form-field: #fffdf8;
+  --background-modifier-form-field-highlighted: #fffaf0;
+  --background-modifier-box-shadow: rgba(35, 39, 46, 0.12);
+  --background-modifier-success: #dcfce7;
+  --background-modifier-error: #fee2e2;
+  --background-modifier-error-rgb: 185, 28, 28;
+
+  --text-normal: #23272e;
+  --text-muted: #5b6470;
+  --text-faint: #8a929c;
+  --text-on-accent: #ffffff;
+  --text-on-accent-inverted: #23272e;
+  --text-accent: #0f766e;
+  --text-accent-hover: #115e59;
+  --text-selection: rgba(15, 118, 110, 0.16);
+  --text-highlight-bg: rgba(245, 158, 11, 0.24);
+
+  --interactive-accent: #0f766e;
+  --interactive-accent-hover: #115e59;
+  --interactive-accent-rgb: 15, 118, 110;
+  --interactive-normal: #f1ece1;
+  --interactive-hover: #e9e2d4;
+  --interactive-success: #15803d;
+
+  --link-color: #0f6b66;
+  --link-color-hover: #0b4f4b;
+  --link-external-color: #0f6b66;
+  --link-external-color-hover: #0b4f4b;
+  --link-unresolved-color: #b45309;
+  --link-unresolved-opacity: 0.82;
+
+  --tag-background: rgba(15, 118, 110, 0.10);
+  --tag-background-hover: rgba(15, 118, 110, 0.17);
+  --tag-color: #0f5f5a;
+  --tag-color-hover: #0b4f4b;
+
+  --code-background: #f1ece1;
+  --code-normal: #9a3412;
+  --code-comment: #7c8794;
+  --code-function: #0f766e;
+  --code-important: #b91c1c;
+  --code-keyword: #7c3aed;
+  --code-operator: #b45309;
+  --code-property: #1d4ed8;
+  --code-punctuation: #5b6470;
+  --code-string: #15803d;
+  --code-tag: #b45309;
+  --code-value: #9a3412;
+
+  --blockquote-border-color: #0f766e;
+  --blockquote-background-color: #f1ece1;
+  --table-border-color: #d8cfbd;
+  --table-header-background: #efe8da;
+  --table-row-background-hover: rgba(15, 118, 110, 0.065);
+  --table-row-alt-background: rgba(35, 39, 46, 0.022);
+
+  --h1-color: #1f2937;
+  --h2-color: #1f2937;
+  --h3-color: #0f5f5a;
+  --h4-color: #5b6470;
+  --hr-color: #d8cfbd;
+  --scrollbar-thumb-bg: rgba(35, 39, 46, 0.16);
+  --scrollbar-active-thumb-bg: rgba(35, 39, 46, 0.28);
+
+  --font-text: "Source Serif 4", "LXGW WenKai", "霞鹜文楷", "Noto Serif SC",
+    "Source Han Serif SC", "Songti SC", "SimSun", Georgia, "Times New Roman",
+    serif;
+  --font-interface: "Inter", "Noto Sans SC", "Microsoft YaHei", "Segoe UI",
+    "PingFang SC", sans-serif;
+  --font-monospace: "JetBrains Mono", "Cascadia Code", "Consolas", "Menlo",
+    monospace;
+
+  --file-line-width: 1040px;
+  --hb-line-width: 1040px;
+  --line-height-normal: 1.8;
+  --p-spacing: 0.9em;
+  --font-text-size: 16px;
+}
+
+body.theme-dark {
+  --background-primary: #17191d;
+  --background-primary-alt: #1b1e23;
+  --background-secondary: #1e2228;
+  --background-secondary-alt: #242932;
+  --background-tertiary: #2a303a;
+  --background-modifier-border: #2e343d;
+  --background-modifier-border-hover: #3d4550;
+  --background-modifier-border-focus: #5eead4;
+  --background-modifier-hover: rgba(94, 234, 212, 0.07);
+  --background-modifier-active-hover: rgba(94, 234, 212, 0.12);
+  --background-modifier-form-field: #1b1e23;
+  --background-modifier-form-field-highlighted: #222731;
+  --background-modifier-box-shadow: rgba(0, 0, 0, 0.35);
+  --background-modifier-success: #14351f;
+  --background-modifier-error: #3a1717;
+  --background-modifier-error-rgb: 248, 113, 113;
+
+  --text-normal: #d8dce3;
+  --text-muted: #9aa3b2;
+  --text-faint: #6f7887;
+  --text-on-accent: #10221f;
+  --text-on-accent-inverted: #d8dce3;
+  --text-accent: #5eead4;
+  --text-accent-hover: #99f6e4;
+  --text-selection: rgba(94, 234, 212, 0.16);
+  --text-highlight-bg: rgba(245, 158, 11, 0.24);
+
+  --interactive-accent: #5eead4;
+  --interactive-accent-hover: #99f6e4;
+  --interactive-accent-rgb: 94, 234, 212;
+  --interactive-normal: #242932;
+  --interactive-hover: #2a303a;
+  --interactive-success: #4ade80;
+
+  --link-color: #7dd3fc;
+  --link-color-hover: #bae6fd;
+  --link-external-color: #7dd3fc;
+  --link-external-color-hover: #bae6fd;
+  --link-unresolved-color: #fbbf24;
+
+  --tag-background: rgba(94, 234, 212, 0.10);
+  --tag-background-hover: rgba(94, 234, 212, 0.17);
+  --tag-color: #99f6e4;
+  --tag-color-hover: #ccfbf1;
+
+  --code-background: #111318;
+  --code-normal: #fca5a5;
+  --code-comment: #7c8794;
+  --code-function: #5eead4;
+  --code-important: #fca5a5;
+  --code-keyword: #c4b5fd;
+  --code-operator: #fbbf24;
+  --code-property: #93c5fd;
+  --code-punctuation: #9aa3b2;
+  --code-string: #86efac;
+  --code-tag: #fbbf24;
+  --code-value: #fca5a5;
+
+  --blockquote-border-color: #5eead4;
+  --blockquote-background-color: #1e2228;
+  --table-border-color: #2e343d;
+  --table-header-background: #222731;
+  --table-row-background-hover: rgba(94, 234, 212, 0.06);
+  --table-row-alt-background: rgba(255, 255, 255, 0.025);
+
+  --h1-color: #f1f5f9;
+  --h2-color: #f1f5f9;
+  --h3-color: #99f6e4;
+  --h4-color: #9aa3b2;
+  --hr-color: #2e343d;
+  --scrollbar-thumb-bg: rgba(216, 220, 227, 0.16);
+  --scrollbar-active-thumb-bg: rgba(216, 220, 227, 0.28);
+}
+
+/* --------------------------------------------------------------------------
+   1. Base reading surface
+   -------------------------------------------------------------------------- */
+
+body {
+  --font-ui-small: 12px;
+  --font-ui-smaller: 11px;
+  --font-ui-medium: 14px;
+  --font-ui-large: 18px;
+  --radius-s: 4px;
+  --radius-m: 6px;
+  --radius-l: 8px;
+  --file-line-width: 1040px;
+  --hb-line-width: 1040px;
+  --hb-image-width: 640px;
+  --hb-image-max-height: 62vh;
+  --hb-wide-image-max-height: 82vh;
+  --font-text-size: 16px;
+  --line-height-normal: 1.8;
+  --p-spacing: 0.9em;
+  --font-text: "Source Serif 4", "LXGW WenKai", "霞鹜文楷", "Noto Serif SC",
+    "Source Han Serif SC", "Songti SC", "SimSun", Georgia, "Times New Roman",
+    serif;
+  --font-interface: "Inter", "Noto Sans SC", "Microsoft YaHei", "Segoe UI",
+    "PingFang SC", sans-serif;
+  --font-monospace: "JetBrains Mono", "Cascadia Code", "Consolas", "Menlo",
+    monospace;
+}
+
+.markdown-view,
+.markdown-preview-view,
+.markdown-reading-view,
+.markdown-rendered,
+.cm-content {
+  font-family: var(--font-text);
+  font-size: var(--font-text-size);
+  line-height: var(--line-height-normal);
+  color: var(--text-normal);
+  text-align: left;
+  text-justify: auto;
+  letter-spacing: 0.006em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Keep a comfortable measure even when “Readable line length” is off. */
+.markdown-preview-sizer,
+.markdown-source-view.mod-cm6 .cm-sizer {
+  max-width: var(--hb-line-width, 1040px) !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(16px, 4vw, 44px) !important;
+}
+
+/* Per-note width overrides. Add one of these to the note's frontmatter:
+   ---
+   cssclasses: [hb-width-wide]
+   ---
+   Available: hb-width-narrow / hb-width-normal / hb-width-wide / hb-width-full. */
+.hb-width-narrow .markdown-preview-sizer,
+.hb-width-narrow .cm-sizer {
+  max-width: 760px !important;
+}
+
+.hb-width-normal .markdown-preview-sizer,
+.hb-width-normal .cm-sizer {
+  max-width: 1040px !important;
+}
+
+.hb-width-wide .markdown-preview-sizer,
+.hb-width-wide .cm-sizer {
+  max-width: 1240px !important;
+}
+
+.hb-width-full .markdown-preview-sizer,
+.hb-width-full .cm-sizer {
+  max-width: 100% !important;
+}
+
+/* A little air at the top and bottom of a note. */
+.markdown-preview-sizer {
+  padding-top: 28px !important;
+  padding-bottom: 80px !important;
+}
+
+.markdown-rendered p,
+.markdown-rendered li,
+.markdown-rendered td,
+.markdown-rendered th {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.markdown-rendered p {
+  margin-block: 0.55em 0.9em;
+  orphans: 3;
+  widows: 3;
+}
+
+.markdown-rendered ul,
+.markdown-rendered ol {
+  padding-inline-start: 1.45em;
+  margin-block: 0.55em 1em;
+}
+
+.markdown-rendered li {
+  margin-block: 0.22em;
+}
+
+.markdown-rendered li::marker {
+  color: var(--interactive-accent);
+  font-weight: 600;
+}
+
+.markdown-rendered strong {
+  font-weight: 700;
+  color: var(--text-normal);
+}
+
+.markdown-rendered em {
+  font-style: italic;
+}
+
+.markdown-rendered hr {
+  border: 0;
+  border-top: 1px solid var(--hr-color);
+  margin: 2.4em 0;
+}
+
+/* --------------------------------------------------------------------------
+   2. Heading hierarchy
+   -------------------------------------------------------------------------- */
+
+.markdown-rendered h1,
+.markdown-rendered h2,
+.markdown-rendered h3,
+.markdown-rendered h4,
+.markdown-rendered h5,
+.markdown-rendered h6,
+.cm-s-obsidian .HyperMD-header {
+  font-family: var(--font-interface);
+  text-wrap: balance;
+  scroll-margin-top: 84px;
+}
+
+.markdown-rendered h1,
+.cm-s-obsidian .HyperMD-header-1 {
+  font-size: 2.05em;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  color: var(--h1-color);
+  margin-top: 2.3em !important;
+  margin-bottom: 0.85em !important;
+  padding-bottom: 0.35em;
+  border-bottom: 2px solid var(--interactive-accent);
+}
+
+.markdown-rendered h2,
+.cm-s-obsidian .HyperMD-header-2 {
+  font-size: 1.48em;
+  font-weight: 680;
+  letter-spacing: -0.018em;
+  color: var(--h2-color);
+  margin-top: 2.0em !important;
+  margin-bottom: 0.7em !important;
+  padding-left: 0.55em;
+  border-left: 4px solid var(--interactive-accent);
+}
+
+.markdown-rendered h3,
+.cm-s-obsidian .HyperMD-header-3 {
+  font-size: 1.2em;
+  font-weight: 650;
+  letter-spacing: -0.008em;
+  color: var(--h3-color);
+  margin-top: 1.55em !important;
+  margin-bottom: 0.5em !important;
+}
+
+.markdown-rendered h4,
+.cm-s-obsidian .HyperMD-header-4 {
+  font-size: 1.04em;
+  font-weight: 650;
+  letter-spacing: 0.015em;
+  color: var(--h4-color);
+  margin-top: 1.25em !important;
+  margin-bottom: 0.4em !important;
+}
+
+.markdown-rendered h5,
+.markdown-rendered h6 {
+  font-size: 0.95em;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 1.1em !important;
+}
+
+/* Avoid the “file name + H1” duplicate title. The inline title is kept for
+   notes that do not have an H1 (e.g. short fragments). */
+.markdown-preview-view:has(h1) .inline-title,
+.markdown-source-view:has(.HyperMD-header-1) .inline-title {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. Links, tags and highlights
+   -------------------------------------------------------------------------- */
+
+.markdown-rendered a.internal-link,
+.cm-s-obsidian span.cm-hmd-internal-link {
+  color: var(--link-color);
+  text-decoration: none;
+  border-bottom: 1px dashed color-mix(in srgb, var(--link-color) 45%, transparent);
+  padding-bottom: 0.5px;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.markdown-rendered a.internal-link:hover,
+.cm-s-obsidian span.cm-hmd-internal-link:hover {
+  color: var(--link-color-hover);
+  border-bottom: 1.5px solid currentColor;
+}
+
+.markdown-rendered a.internal-link.is-unresolved {
+  color: var(--link-unresolved-color);
+  border-bottom: 1px dotted currentColor;
+  opacity: var(--link-unresolved-opacity);
+}
+
+.markdown-rendered a.external-link,
+.cm-s-obsidian span.cm-link {
+  color: var(--link-external-color);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--link-external-color) 35%, transparent);
+}
+
+.markdown-rendered a.tag,
+.cm-s-obsidian span.cm-hashtag {
+  display: inline-block;
+  padding: 0.08em 0.5em;
+  border-radius: 999px;
+  background: var(--tag-background);
+  color: var(--tag-color);
+  font-family: var(--font-interface);
+  font-size: 0.82em;
+  font-weight: 550;
+  line-height: 1.55;
+  text-decoration: none;
+  border: 1px solid color-mix(in srgb, var(--tag-color) 14%, transparent);
+}
+
+.markdown-rendered a.tag:hover {
+  background: var(--tag-background-hover);
+  color: var(--tag-color-hover);
+}
+
+.markdown-rendered mark,
+.cm-s-obsidian span.cm-highlight {
+  background: linear-gradient(
+    104deg,
+    transparent 0%,
+    var(--text-highlight-bg) 10%,
+    var(--text-highlight-bg) 90%,
+    transparent 100%
+  );
+  color: inherit;
+  padding: 0.08em 0.28em;
+  border-radius: 2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+::selection {
+  background: var(--text-selection);
+}
+
+/* --------------------------------------------------------------------------
+   4. Mathematics
+   -------------------------------------------------------------------------- */
+
+.markdown-rendered mjx-container[jax="CHTML"][display="true"],
+.markdown-rendered .math-block,
+.cm-s-obsidian .math-block,
+.cm-embed-block .math {
+  display: block;
+  margin: 1.15em 0 !important;
+  padding: 0.25em 0.15em !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  text-align: center;
+  font-size: 1.02em;
+}
+
+.cm-embed-block:has(.math),
+.cm-embed-block:has(.math-block) {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.markdown-rendered mjx-container:not([display="true"]),
+.cm-s-obsidian .math-inline {
+  padding: 0 0.14em;
+  vertical-align: -0.05em;
+}
+
+.markdown-rendered mjx-container[display="true"]::-webkit-scrollbar,
+.math-block::-webkit-scrollbar {
+  height: 3px;
+}
+
+.markdown-rendered mjx-container[display="true"]::-webkit-scrollbar-thumb,
+.math-block::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-bg);
+  border-radius: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   5. Tables — research lookup
+   -------------------------------------------------------------------------- */
+
+.markdown-rendered .table-wrapper {
+  overflow-x: auto;
+  margin: 1.6em 0;
+  border-radius: var(--radius-s);
+}
+
+.markdown-rendered table {
+  width: 100%;
+  min-width: 520px;
+  margin: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-family: var(--font-interface);
+  font-size: 0.9em;
+  line-height: 1.55;
+  border-top: 2px solid var(--text-normal);
+  border-bottom: 2px solid var(--text-normal);
+  background: transparent;
+}
+
+.markdown-rendered thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 0.6em 0.8em;
+  font-weight: 650;
+  text-align: left;
+  color: var(--text-normal);
+  background: var(--table-header-background);
+  border-bottom: 1.5px solid var(--text-normal);
+  white-space: nowrap;
+}
+
+.markdown-rendered tbody td {
+  padding: 0.55em 0.8em;
+  vertical-align: top;
+  border-bottom: 1px solid var(--table-border-color);
+  text-align: left;
+}
+
+.markdown-rendered tbody tr:nth-child(even) {
+  background: var(--table-row-alt-background);
+}
+
+.markdown-rendered tbody tr:hover {
+  background: var(--table-row-background-hover);
+}
+
+.markdown-rendered table code {
+  font-size: 0.86em;
+  white-space: nowrap;
+}
+
+.markdown-rendered table mjx-container {
+  font-size: 0.95em;
+}
+
+/* --------------------------------------------------------------------------
+   6. Figures and captions
+   -------------------------------------------------------------------------- */
+
+.markdown-rendered img,
+.markdown-preview-view .internal-embed.media-embed img,
+.markdown-rendered .image-embed img {
+  display: block;
+  width: auto;
+  max-width: min(100%, var(--hb-image-width, 640px));
+  max-height: var(--hb-image-max-height, 62vh);
+  height: auto;
+  object-fit: contain;
+  margin: 1.55em auto 0.45em;
+  border-radius: var(--radius-s);
+  border: 1px solid var(--background-modifier-border);
+  background: #ffffff;
+  box-shadow: 0 3px 14px rgba(35, 39, 46, 0.07);
+  transition: box-shadow 160ms ease, transform 160ms ease;
+}
+
+body.theme-dark .markdown-rendered img,
+body.theme-dark .markdown-preview-view .internal-embed.media-embed img {
+  background: #f7f7f7;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.42);
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+/* Data-table scans in the appendix may use the full text width.
+   Add `cssclasses: [hb-wide-images]` to the note frontmatter. */
+.hb-wide-images .markdown-rendered img,
+.hb-wide-images .internal-embed img,
+.hb-wide-images .image-embed img {
+  max-width: 100% !important;
+  max-height: var(--hb-wide-image-max-height, 82vh) !important;
+}
+
+.markdown-rendered img:hover {
+  box-shadow: 0 6px 22px rgba(35, 39, 46, 0.12);
+}
+
+.markdown-rendered p:has(img),
+.markdown-rendered .image-embed,
+.markdown-rendered .internal-embed.image-embed {
+  text-align: center;
+}
+
+/* Caption paragraph immediately below an image. The Markdown convention is
+   `![[assets/...]]` followed by `**图 5-9**　caption`.
+   The three selectors cover the common Obsidian DOM shapes: image inside a
+   paragraph, image embed as a block sibling, and an explicit class. */
+.markdown-rendered :is(
+  p:has(img) + p:not(:has(img)),
+  .internal-embed.image-embed + p,
+  .image-embed + p,
+  .media-embed + p
+):has(> strong:first-child),
+.markdown-rendered .hb-caption {
+  display: block;
+  width: fit-content;
+  max-width: min(100%, 720px);
+  margin: 0.35em auto 1.9em;
+  padding: 0.35em 0.8em 0.4em;
+  border-left: none;
+  border-bottom: 2px solid var(--interactive-accent);
+  border-radius: var(--radius-s) var(--radius-s) 0 0;
+  background: var(--background-secondary);
+  color: var(--text-normal);
+  font-family: var(--font-interface);
+  font-size: 0.86em;
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(35, 39, 46, 0.035);
+}
+
+.markdown-rendered :is(
+  p:has(img) + p:not(:has(img)),
+  .internal-embed.image-embed + p,
+  .image-embed + p,
+  .media-embed + p
+):has(> strong:first-child) em,
+.markdown-rendered .hb-caption em {
+  font-style: normal;
+}
+
+.markdown-rendered :is(
+  p:has(img) + p:not(:has(img)),
+  .internal-embed.image-embed + p,
+  .image-embed + p,
+  .media-embed + p
+):has(> strong:first-child) strong,
+.markdown-rendered .hb-caption strong {
+  display: inline-block;
+  margin-right: 0.35em;
+  padding: 0.03em 0.38em;
+  border-radius: 2px;
+  background: var(--interactive-accent);
+  color: var(--text-on-accent) !important;
+  font-weight: 750;
+  letter-spacing: 0.02em;
+}
+
+body.theme-dark .markdown-rendered :is(
+  p:has(img) + p:not(:has(img)),
+  .internal-embed.image-embed + p,
+  .image-embed + p,
+  .media-embed + p
+):has(> strong:first-child),
+body.theme-dark .markdown-rendered .hb-caption {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+}
+
+/* Optional HTML figure wrapper, if a note needs a visible caption rule. */
+.hb-figure {
+  margin: 1.8em 0;
+  text-align: center;
+}
+
+.hb-figure figcaption {
+  display: inline-block;
+  margin-top: 0.45em;
+  padding: 0.35em 0.8em;
+  border-left: 3px solid var(--interactive-accent);
+  background: var(--background-secondary);
+  font-family: var(--font-interface);
+  font-size: 0.86em;
+  color: var(--text-normal);
+}
+
+/* --------------------------------------------------------------------------
+   7. Blockquotes and callouts
+   -------------------------------------------------------------------------- */
+
+.markdown-rendered blockquote {
+  margin: 1.35em 0;
+  padding: 0.85em 1.1em;
+  border-left: 4px solid var(--blockquote-border-color);
+  border-radius: 0 var(--radius-m) var(--radius-m) 0;
+  background: var(--blockquote-background-color);
+  color: var(--text-normal);
+  font-style: normal;
+}
+
+.markdown-rendered blockquote p {
+  margin-block: 0.3em;
+}
+
+.markdown-rendered blockquote > :first-child {
+  margin-top: 0;
+}
+
+.markdown-rendered blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.callout {
+  margin: 1.3em 0;
+  padding: 0.8em 1em;
+  border: 1px solid var(--background-modifier-border);
+  border-left: 4px solid var(--callout-color, var(--interactive-accent));
+  border-radius: var(--radius-m);
+  background: color-mix(
+    in srgb,
+    var(--callout-color, var(--interactive-accent)) 8%,
+    var(--background-primary)
+  );
+}
+
+.callout-title {
+  gap: 0.45em;
+  font-family: var(--font-interface);
+  font-weight: 650;
+  color: var(--callout-color, var(--interactive-accent));
+}
+
+.callout-content {
+  font-size: 0.97em;
+}
+
+.callout-content p:first-child {
+  margin-top: 0;
+}
+
+.callout-content p:last-child {
+  margin-bottom: 0;
+}
+
+.callout[data-callout="figure"] {
+  --callout-color: var(--interactive-accent);
+  padding: 0.55em 0.9em;
+  border-left-width: 3px;
+  font-family: var(--font-interface);
+  font-size: 0.88em;
+}
+
+.callout[data-callout="figure"] .callout-title {
+  font-size: 0.95em;
+}
+
+/* --------------------------------------------------------------------------
+   8. Code
+   -------------------------------------------------------------------------- */
+
+.markdown-rendered :not(pre) > code,
+.cm-s-obsidian span.cm-inline-code {
+  font-family: var(--font-monospace);
+  font-size: 0.87em;
+  padding: 0.12em 0.36em;
+  border-radius: 3px;
+  background: var(--code-background);
+  border: 1px solid var(--background-modifier-border);
+  color: var(--code-normal);
+}
+
+.markdown-rendered pre {
+  margin: 1.3em 0;
+  padding: 1em 1.15em;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  background: var(--code-background);
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+.markdown-rendered pre code {
+  font-family: var(--font-monospace);
+  font-size: 0.86em;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--code-normal);
+}
+
+.cm-s-obsidian .HyperMD-codeblock {
+  font-family: var(--font-monospace);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   9. Properties / frontmatter
+   -------------------------------------------------------------------------- */
+
+.metadata-container {
+  margin-block: 1em 1.6em;
+  padding: 0.75em 0.95em;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  background: var(--background-secondary);
+  font-family: var(--font-interface);
+  font-size: 0.84em;
+}
+
+.metadata-property-key {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.metadata-property-value {
+  color: var(--text-normal);
+}
+
+/* --------------------------------------------------------------------------
+   10. Sidebar, file explorer, tabs, search and outline
+   -------------------------------------------------------------------------- */
+
+.nav-file-title,
+.nav-folder-title {
+  font-family: var(--font-interface);
+  font-size: 0.86em;
+  border-radius: var(--radius-s);
+  padding-inline: 0.45em;
+}
+
+.nav-folder-title {
+  font-weight: 650;
+  color: var(--text-muted);
+}
+
+.nav-file-title.is-active {
+  background: color-mix(in srgb, var(--interactive-accent) 14%, transparent);
+  color: var(--text-accent, var(--interactive-accent));
+  font-weight: 650;
+}
+
+.nav-file-tag {
+  font-family: var(--font-interface);
+  font-size: 0.68em;
+  border-radius: 999px;
+}
+
+.workspace-tab-header-inner-title {
+  font-family: var(--font-interface);
+  font-size: 0.86em;
+}
+
+.workspace-tab-header.is-active {
+  border-bottom: 2px solid var(--interactive-accent);
+}
+
+.status-bar {
+  font-family: var(--font-interface);
+  font-size: 11px;
+  color: var(--text-faint);
+}
+
+.search-result-file-title {
+  font-family: var(--font-interface);
+  font-weight: 650;
+}
+
+.search-result-file-matched-text {
+  background: color-mix(in srgb, var(--interactive-accent) 18%, transparent);
+  color: var(--text-normal);
+  border-radius: 2px;
+}
+
+.search-result-file-matches {
+  font-size: 0.88em;
+}
+
+/* Outline / table of contents. Put the “Outline” core view in the left
+   sidebar and keep it open while reading. */
+.workspace-leaf-content[data-type="outline"] .view-content {
+  padding: 0.55em 0.55em 1.2em;
+}
+
+.outline .tree-item-self {
+  padding: 0.28em 0.55em;
+  border-radius: var(--radius-s);
+  color: var(--text-muted);
+  line-height: 1.45;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.outline .tree-item-self:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+.outline .tree-item-inner {
+  font-family: var(--font-interface);
+  font-size: 0.84em;
+  letter-spacing: 0.005em;
+}
+
+.outline .tree-item-self.is-active {
+  color: var(--interactive-accent);
+  background: color-mix(in srgb, var(--interactive-accent) 12%, transparent);
+  font-weight: 650;
+}
+
+.outline .tree-item-children {
+  margin-left: 0.55em;
+  padding-left: 0.35em;
+  border-left: 1px solid var(--background-modifier-border);
+}
+
+.outline .tree-item-collapse-indicator {
+  color: var(--text-faint);
+}
+
+/* --------------------------------------------------------------------------
+   11. Scrollbars, focus and motion
+   -------------------------------------------------------------------------- */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-bg);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-active-thumb-bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--interactive-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   12. Responsive adjustments
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 720px) {
+  .markdown-preview-sizer,
+  .markdown-source-view.mod-cm6 .cm-sizer {
+    padding-inline: 16px !important;
+  }
+
+  .markdown-rendered {
+    font-size: 15px;
+  }
+
+  .markdown-rendered h1 {
+    font-size: 1.8em;
+  }
+
+  .markdown-rendered h2 {
+    font-size: 1.35em;
+  }
+
+  .markdown-rendered table {
+    font-size: 0.84em;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   13. Print / PDF export
+   -------------------------------------------------------------------------- */
+
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .markdown-preview-view,
+  .markdown-rendered {
+    max-width: none !important;
+    padding: 0 !important;
+    font-size: 11pt;
+    line-height: 1.55;
+  }
+
+  .markdown-rendered h1,
+  .markdown-rendered h2,
+  .markdown-rendered h3,
+  .markdown-rendered h4 {
+    break-after: avoid-page;
+    page-break-after: avoid;
+  }
+
+  .markdown-rendered img,
+  .markdown-rendered table,
+  .markdown-rendered pre,
+  .markdown-rendered blockquote,
+  .markdown-rendered .callout {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .markdown-rendered :is(
+    p:has(img) + p:not(:has(img)),
+    .internal-embed.image-embed + p,
+    .image-embed + p,
+    .media-embed + p
+  ):has(> strong:first-child) {
+    break-before: avoid-page;
+    page-break-before: avoid;
+  }
+
+  .markdown-rendered a.internal-link {
+    color: #000000;
+    border-bottom: 0;
+  }
+
+  .markdown-rendered table {
+    min-width: 0;
+    font-size: 9pt;
+  }
+}
