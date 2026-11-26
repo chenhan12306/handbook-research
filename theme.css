@@ -959,13 +959,12 @@ body.theme-dark .markdown-rendered .hb-caption {
 .nav-folder-title {
   font-family: var(--font-interface);
   font-size: 0.86em;
-  border-radius: 2px;
+  border-radius: 0;
   padding-inline: 0.45em;
 }
 
 .nav-folder-title {
   font-weight: 650;
-  color: var(--text-muted);
 }
 
 /* File-tree chrome colors: see §14 Workspace chrome (Vector). */
@@ -1058,7 +1057,7 @@ body.theme-dark .markdown-rendered .hb-caption {
 
 ::-webkit-scrollbar-thumb {
   background: color-mix(in srgb, var(--text-muted) 16%, transparent);
-  border-radius: 3px;
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
