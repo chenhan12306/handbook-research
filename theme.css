@@ -29,6 +29,12 @@ settings:
     max: 90
     step: 2
     format: vh
+  - id: hb-handbook-lookup
+    title: Handbook lookup mode
+    description: 更紧凑的表格与信息框样式，便于符号表/物性查阅（默认「学术阅读」不变）。
+    type: class-toggle
+    default: false
+    addClass: hb-handbook-lookup
 */
 
 /* ==========================================================================
@@ -263,11 +269,11 @@ body {
 }
 
 /* Keep a comfortable measure even when “Readable line length” is off. */
-.markdown-preview-sizer,
-.markdown-source-view.mod-cm6 .cm-sizer {
-  max-width: var(--hb-line-width, 1040px) !important;
-  margin-inline: auto !important;
-  padding-inline: clamp(16px, 4vw, 44px) !important;
+body .markdown-reading-view .markdown-preview-sizer,
+body .markdown-source-view.mod-cm6 .cm-sizer {
+  max-width: var(--hb-line-width, 1040px);
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 44px);
 }
 
 /* Per-note width overrides. Add one of these to the note's frontmatter:
@@ -275,30 +281,30 @@ body {
    cssclasses: [hb-width-wide]
    ---
    Available: hb-width-narrow / hb-width-normal / hb-width-wide / hb-width-full. */
-.hb-width-narrow .markdown-preview-sizer,
-.hb-width-narrow .cm-sizer {
-  max-width: 760px !important;
+body.hb-width-narrow .markdown-reading-view .markdown-preview-sizer,
+body.hb-width-narrow .markdown-source-view.mod-cm6 .cm-sizer {
+  max-width: 760px;
 }
 
-.hb-width-normal .markdown-preview-sizer,
-.hb-width-normal .cm-sizer {
-  max-width: 1040px !important;
+body.hb-width-normal .markdown-reading-view .markdown-preview-sizer,
+body.hb-width-normal .markdown-source-view.mod-cm6 .cm-sizer {
+  max-width: 1040px;
 }
 
-.hb-width-wide .markdown-preview-sizer,
-.hb-width-wide .cm-sizer {
-  max-width: 1240px !important;
+body.hb-width-wide .markdown-reading-view .markdown-preview-sizer,
+body.hb-width-wide .markdown-source-view.mod-cm6 .cm-sizer {
+  max-width: 1240px;
 }
 
-.hb-width-full .markdown-preview-sizer,
-.hb-width-full .cm-sizer {
-  max-width: 100% !important;
+body.hb-width-full .markdown-reading-view .markdown-preview-sizer,
+body.hb-width-full .markdown-source-view.mod-cm6 .cm-sizer {
+  max-width: 100%;
 }
 
 /* A little air at the top and bottom of a note. */
-.markdown-preview-sizer {
-  padding-top: 28px !important;
-  padding-bottom: 80px !important;
+body .markdown-reading-view .markdown-preview-sizer {
+  padding-top: 28px;
+  padding-bottom: 80px;
 }
 
 .markdown-rendered p,
@@ -360,65 +366,71 @@ body {
   scroll-margin-top: 84px;
 }
 
-.markdown-rendered h1,
+.markdown-reading-view .markdown-rendered h1,
 .cm-s-obsidian .HyperMD-header-1 {
-  font-size: 2.05em;
+  font-size: 2em;
   font-weight: 750;
   letter-spacing: -0.025em;
   color: var(--h1-color);
-  margin-top: 2.3em !important;
-  margin-bottom: 0.85em !important;
-  padding-bottom: 0.35em;
+  margin-top: 2.1em;
+  margin-bottom: 0.75em;
+  padding-bottom: 0.32em;
   border-bottom: 2px solid var(--interactive-accent);
 }
 
-.markdown-rendered h2,
+.markdown-reading-view .markdown-rendered h2,
 .cm-s-obsidian .HyperMD-header-2 {
-  font-size: 1.48em;
+  font-size: 1.42em;
   font-weight: 680;
   letter-spacing: -0.018em;
   color: var(--h2-color);
-  margin-top: 2.0em !important;
-  margin-bottom: 0.7em !important;
+  margin-top: 1.85em;
+  margin-bottom: 0.62em;
   padding-left: 0.55em;
+  padding-bottom: 0.22em;
   border-left: 4px solid var(--interactive-accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--hr-color) 85%, transparent);
 }
 
-.markdown-rendered h3,
+.markdown-reading-view .markdown-rendered h3,
 .cm-s-obsidian .HyperMD-header-3 {
-  font-size: 1.2em;
+  font-size: 1.16em;
   font-weight: 650;
   letter-spacing: -0.008em;
   color: var(--h3-color);
-  margin-top: 1.55em !important;
-  margin-bottom: 0.5em !important;
+  margin-top: 1.4em;
+  margin-bottom: 0.45em;
+  padding-bottom: 0.18em;
+  border-bottom: 1px solid color-mix(in srgb, var(--interactive-accent) 28%, var(--hr-color));
 }
 
-.markdown-rendered h4,
+.markdown-reading-view .markdown-rendered h4,
 .cm-s-obsidian .HyperMD-header-4 {
-  font-size: 1.04em;
+  font-size: 1.03em;
   font-weight: 650;
   letter-spacing: 0.015em;
   color: var(--h4-color);
-  margin-top: 1.25em !important;
-  margin-bottom: 0.4em !important;
+  margin-top: 1.15em;
+  margin-bottom: 0.38em;
 }
 
-.markdown-rendered h5,
-.markdown-rendered h6 {
-  font-size: 0.95em;
+.markdown-reading-view .markdown-rendered h5,
+.markdown-reading-view .markdown-rendered h6 {
+  font-size: 0.94em;
   font-weight: 650;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin-top: 1.1em !important;
+  margin-top: 1em;
 }
 
 /* Avoid the “file name + H1” duplicate title. The inline title is kept for
    notes that do not have an H1 (e.g. short fragments). */
+/* stylelint-disable-next-line selector-pseudo-class-disallowed-list -- no :has() alternative */
 .markdown-preview-view:has(h1) .inline-title,
+/* stylelint-disable-next-line selector-pseudo-class-disallowed-list */
 .markdown-source-view:has(.HyperMD-header-1) .inline-title {
-  display: none !important;
+  display: none;
 }
 
 /* --------------------------------------------------------------------------
@@ -450,7 +462,17 @@ body {
 .cm-s-obsidian span.cm-link {
   color: var(--link-external-color);
   text-decoration: none;
-  border-bottom: 1px solid color-mix(in srgb, var(--link-external-color) 35%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--link-external-color) 28%, transparent);
+  text-underline-offset: 0.12em;
+}
+
+.markdown-rendered .footnote-ref,
+.markdown-rendered .footnote-backref {
+  font-size: 0.82em;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--text-faint);
 }
 
 .markdown-rendered a.tag,
@@ -498,29 +520,30 @@ body {
    -------------------------------------------------------------------------- */
 
 /* stylelint-disable selector-type-no-unknown -- MathJax CHTML custom elements */
-.markdown-rendered mjx-container[jax="CHTML"][display="true"],
-.markdown-rendered .math-block,
+.markdown-reading-view .markdown-rendered mjx-container[jax="CHTML"][display="true"],
+.markdown-reading-view .markdown-rendered .math-block,
 .cm-s-obsidian .math-block,
-.cm-embed-block .math {
+.cm-embed-block .math,
+.cm-embed-block .math-block {
   display: block;
-  margin: 1.15em 0 !important;
-  padding: 0.25em 0.15em !important;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  overflow-x: auto !important;
-  overflow-y: hidden !important;
+  margin: 1.15em 0;
+  padding: 0.25em 0.15em;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  overflow-x: auto;
+  overflow-y: hidden;
   text-align: center;
   font-size: 1.02em;
 }
 
-.cm-embed-block:has(.math),
-.cm-embed-block:has(.math-block) {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
+.cm-embed-block .math-block,
+.cm-embed-block > .math {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
 }
 
 .markdown-rendered mjx-container:not([display="true"]),
@@ -603,6 +626,29 @@ body {
   font-size: 0.95em;
 }
 
+/* Optional dense lookup tables: Style Settings “Handbook lookup”, or frontmatter
+   cssclasses: [hb-dense-tables] on a single note. Academic three-line default unchanged. */
+body.hb-handbook-lookup .markdown-rendered table,
+.hb-dense-tables .markdown-rendered table {
+  font-size: 0.84em;
+  line-height: 1.42;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+}
+
+body.hb-handbook-lookup .markdown-rendered thead th,
+.hb-dense-tables .markdown-rendered thead th {
+  padding: 0.42em 0.65em;
+  font-size: 0.9em;
+  font-weight: 600;
+  border-bottom-width: 1px;
+}
+
+body.hb-handbook-lookup .markdown-rendered tbody td,
+.hb-dense-tables .markdown-rendered tbody td {
+  padding: 0.38em 0.65em;
+}
+
 /* --------------------------------------------------------------------------
    6. Figures and captions
    -------------------------------------------------------------------------- */
@@ -633,11 +679,11 @@ body.theme-dark .markdown-preview-view .internal-embed.media-embed img {
 
 /* Data-table scans in the appendix may use the full text width.
    Add `cssclasses: [hb-wide-images]` to the note frontmatter. */
-.hb-wide-images .markdown-rendered img,
-.hb-wide-images .internal-embed img,
-.hb-wide-images .image-embed img {
-  max-width: 100% !important;
-  max-height: var(--hb-wide-image-max-height, 82vh) !important;
+body.hb-wide-images .markdown-rendered img,
+body.hb-wide-images .internal-embed img,
+body.hb-wide-images .image-embed img {
+  max-width: 100%;
+  max-height: var(--hb-wide-image-max-height, 82vh);
 }
 
 .markdown-rendered img:hover {
@@ -654,6 +700,7 @@ body.theme-dark .markdown-preview-view .internal-embed.media-embed img {
    `![[assets/...]]` followed by `**图 5-9**　caption`.
    The three selectors cover the common Obsidian DOM shapes: image inside a
    paragraph, image embed as a block sibling, and an explicit class. */
+/* stylelint-disable selector-pseudo-class-disallowed-list -- caption heuristics need :has */
 .markdown-rendered :is(
   p:has(img) + p:not(:has(img)),
   .internal-embed.image-embed + p,
@@ -702,7 +749,7 @@ body.theme-dark .markdown-preview-view .internal-embed.media-embed img {
   padding: 0.03em 0.38em;
   border-radius: 2px;
   background: var(--interactive-accent);
-  color: var(--text-on-accent) !important;
+  color: var(--text-on-accent);
   font-weight: 750;
   letter-spacing: 0.02em;
 }
@@ -716,6 +763,7 @@ body.theme-dark .markdown-rendered :is(
 body.theme-dark .markdown-rendered .hb-caption {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
 }
+/* stylelint-enable selector-pseudo-class-disallowed-list */
 
 /* Optional HTML figure wrapper, if a note needs a visible caption rule. */
 .hb-figure {
@@ -802,6 +850,29 @@ body.theme-dark .markdown-rendered .hb-caption {
 
 .callout[data-callout="figure"] .callout-title {
   font-size: 0.95em;
+}
+
+/* Compact “info box” for symbol tables / property summaries (optional).
+   Usage: `> [!hb-infobox] Title` or class `hb-infobox` on a callout. */
+.callout[data-callout="hb-infobox"],
+.callout.hb-infobox,
+body.hb-handbook-lookup .callout[data-callout="note"].hb-infobox {
+  padding: 0.55em 0.85em;
+  border-width: 1px;
+  border-left-width: 3px;
+  font-family: var(--font-interface);
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+.callout.hb-infobox .callout-title,
+.callout[data-callout="hb-infobox"] .callout-title {
+  font-size: 0.92em;
+  margin-bottom: 0.15em;
+}
+
+body.hb-handbook-lookup .callout[data-callout="info"] {
+  font-size: 0.91em;
 }
 
 /* --------------------------------------------------------------------------

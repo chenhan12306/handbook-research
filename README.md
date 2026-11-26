@@ -2,7 +2,7 @@
 
 An Obsidian theme for engineering handbooks and technical notes. It is tuned for long-form reading, lookup-friendly tables, math, figures with captions, and bilingual (Latin and CJK) typography.
 
-**Version:** 1.0.1 · **Minimum Obsidian:** 1.5.0 · **Author:** [Han Chen](https://github.com/chenhan12306) · **License:** MIT
+**Version:** 1.0.2 · **Minimum Obsidian:** 1.5.0 · **Author:** [Han Chen](https://github.com/chenhan12306) · **License:** MIT
 
 ## Overview
 
@@ -13,17 +13,20 @@ This repository is prepared for the Obsidian Community Themes directory. Until i
 ## Features
 
 - **Light and dark modes** — full token sets in `body.theme-light` and `body.theme-dark`
-- **Heading hierarchy** — accent underlines, left bars, and clear level styling
-- **Tables** — sticky headers, zebra rows, hover highlight, horizontal scroll for wide data
+- **Heading hierarchy** — slightly tighter type scale; H2 left bar + light section rule; H3 subtle underline for handbook skimming
+- **Tables** — default academic three-line tables with sticky headers; optional **Handbook lookup** mode for denser borders and tighter rows
 - **Math** — block and inline formulas with minimal chrome and scroll for wide expressions
 - **Images and captions** — framed images; caption bar styling for lines starting with a bold figure label; optional `hb-wide-images` class
 - **Links, tags, highlights** — dashed internal links, pill tags, gradient highlights
 - **Print / PDF** — rules to reduce bad breaks around figures, tables, and headings
-- **Style Settings** — optional sliders for line width and image max width/height (requires the [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) plugin)
+- **Style Settings** (requires [Style Settings](https://github.com/mgmeyers/obsidian-style-settings)) — line/image sliders; **Handbook lookup mode** toggle (denser tables; compact info callouts)
+- **Optional note classes** — `hb-dense-tables` (per-note compact tables); `> [!hb-infobox]` or `.hb-infobox` for symbol/property summary boxes
+
+Default profile remains **academic long-form reading** (~1040 px measure, serif body, line-height ~1.8). Wikipedia-inspired ideas (clearer scan lines, quieter external links) were applied in spirit only — no third-party theme CSS or fonts were copied.
 
 ## Installation
 
-1. Download `theme.css` and `manifest.json` from the [latest release](https://github.com/chenhan12306/handbook-research/releases) whose tag matches `manifest.json` `version` (e.g. `1.0.1`).
+1. Download `theme.css` and `manifest.json` from the [latest release](https://github.com/chenhan12306/handbook-research/releases) whose tag matches `manifest.json` `version` (e.g. `1.0.2` after publish).
 2. Create `.obsidian/themes/Handbook Research/` in your vault.
 3. Copy both files into that folder.
 4. In Obsidian: **Settings → Appearance → Themes → Handbook Research**.
