@@ -281,21 +281,33 @@ body .markdown-source-view.mod-cm6 .cm-sizer {
    cssclasses: [hb-width-wide]
    ---
    Available: hb-width-narrow / hb-width-normal / hb-width-wide / hb-width-full. */
+.hb-width-narrow .markdown-preview-sizer,
+.markdown-reading-view.hb-width-narrow .markdown-preview-sizer,
+.markdown-source-view.hb-width-narrow .cm-sizer,
 body.hb-width-narrow .markdown-reading-view .markdown-preview-sizer,
 body.hb-width-narrow .markdown-source-view.mod-cm6 .cm-sizer {
   max-width: 760px;
 }
 
+.hb-width-normal .markdown-preview-sizer,
+.markdown-reading-view.hb-width-normal .markdown-preview-sizer,
+.markdown-source-view.hb-width-normal .cm-sizer,
 body.hb-width-normal .markdown-reading-view .markdown-preview-sizer,
 body.hb-width-normal .markdown-source-view.mod-cm6 .cm-sizer {
   max-width: 1040px;
 }
 
+.hb-width-wide .markdown-preview-sizer,
+.markdown-reading-view.hb-width-wide .markdown-preview-sizer,
+.markdown-source-view.hb-width-wide .cm-sizer,
 body.hb-width-wide .markdown-reading-view .markdown-preview-sizer,
 body.hb-width-wide .markdown-source-view.mod-cm6 .cm-sizer {
   max-width: 1240px;
 }
 
+.hb-width-full .markdown-preview-sizer,
+.markdown-reading-view.hb-width-full .markdown-preview-sizer,
+.markdown-source-view.hb-width-full .cm-sizer,
 body.hb-width-full .markdown-reading-view .markdown-preview-sizer,
 body.hb-width-full .markdown-source-view.mod-cm6 .cm-sizer {
   max-width: 100%;
@@ -679,6 +691,11 @@ body.theme-dark .markdown-preview-view .internal-embed.media-embed img {
 
 /* Data-table scans in the appendix may use the full text width.
    Add `cssclasses: [hb-wide-images]` to the note frontmatter. */
+.hb-wide-images .markdown-rendered img,
+.hb-wide-images .internal-embed img,
+.hb-wide-images .image-embed img,
+.markdown-preview-view.hb-wide-images .markdown-rendered img,
+.markdown-preview-view.hb-wide-images .internal-embed img,
 body.hb-wide-images .markdown-rendered img,
 body.hb-wide-images .internal-embed img,
 body.hb-wide-images .image-embed img {
