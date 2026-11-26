@@ -6,17 +6,17 @@ An Obsidian theme for engineering handbooks and technical notes. It is tuned for
 
 ## Overview
 
-**Note body (1.0.1 unchanged):** warm “paper” / “charcoal” palettes, serif body, ~1040 px measure, line-height ~1.8, heading hierarchy, sticky tables, MathJax, caption bars, print rules.
+**Reading surface (1.0.2):** cool **clean paper** in light mode (`#fcfdfe`) and **cool charcoal** in dark (`#181b20`), with a unified **academic handbook blue** accent (`#1d5fa7` light / `#6cb0ff` dark). Typography, ~1040 px measure, line-height ~1.8, heading hierarchy, sticky tables, MathJax, caption bars, and print rules follow the same structure as release **1.0.1** — only the surface and accent palette changed.
 
-**What’s new in 1.0.2:** a restrained **encyclopedia-style workspace chrome** (sidebars, ribbon, tabs, view header, status bar, command palette) with cooler neutral surfaces and 1px borders — **without** changing the warm reading surface or copying the Wikipedia community theme. Also includes CSS lint cleanups (`!important` / `:has` reductions) with **no intended change** to body typography colors.
+**Workspace chrome (1.0.2):** Wikipedia **Vector-inspired** app UI — light blue tab-bar gradient, square active tabs merging into the page, 0px radii on controls, file-tree encyclopedia blues, flat settings/modals. Chrome tokens (`--hb-vector-*`) stay aligned with the cool surfaces above.
 
-Design cues from public wiki-style UIs (flat toolbars, thin borders) were applied in spirit only; **no** Wikipedia CSS, fonts, or logos were used.
+Design cues from public wiki-style UIs were applied in spirit only; **no** Wikipedia CSS, fonts, or logos were used.
 
 ## Features
 
-- **Light and dark modes** — body tokens in `body.theme-light` / `body.theme-dark` (teal accent, unchanged)
-- **Academic reading surface** — same as release **1.0.1** (headings, tables, math, captions, images)
-- **Workspace chrome** — ribbon (~36px), tab bar with accent underline on active tab, muted file tree / outline hovers, lighter scrollbars, flat modals & command palette
+- **Light and dark modes** — cool paper/charcoal surfaces, academic blue accents, Vector-style chrome
+- **Academic reading layout** — serif body, sans headings/UI; tables, math, captions, images unchanged in structure
+- **Workspace chrome** — tab gradient, seamless active tab, muted side dock, 1px borders, square inputs/buttons
 - **Style Settings** — line width and image size sliders ([plugin](https://github.com/mgmeyers/obsidian-style-settings))
 - **Per-note classes** — `hb-width-narrow|normal|wide|full`, `hb-wide-images`
 
@@ -53,4 +53,4 @@ Original theme by Han Chen. Header comment in `theme.css` describes reading goal
 
 ## 中文说明
 
-正文阅读体验与 **1.0.1 发布版一致**（暖纸/暖炭、青绿强调、行宽与表格/公式/图注）。**1.0.2** 主要优化 **Obsidian 程序界面**（侧栏、标签、Ribbon、状态栏等）的克制百科工具栏风格；**不**复制 Wikipedia 主题代码。Style Settings 与 `hb-width-*` / `hb-wide-images` 类名用法不变。社区截图路径仍为 `screenshot.png`。
+**1.0.2** 在保留 **1.0.1 排版结构**（行宽、标题层级、三线表、公式、图注、打印、`hb-width-*` / `hb-wide-images`）的前提下，将正文与界面统一到 **清爽冷白纸 + 沉稳学术蓝**（浅色 `#1d5fa7`，深色 `#6cb0ff`），并与 Vector 风格程序界面（浅蓝顶栏、直角标签、侧栏百科蓝）同色温衔接。左下角仓库栏等次级表面使用 `#f8f9fa` / `#f1f4f8`，避免暖米灰割裂。社区截图路径仍为 `screenshot.png`。

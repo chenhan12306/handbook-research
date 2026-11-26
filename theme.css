@@ -42,7 +42,7 @@ settings:
       “图 5-9 …” reads as a caption, not as ordinary italic text.
    4. Math and tables: no decoration; generous spacing; horizontal scroll
       for wide formulas/tables.
-   5. Light “warm paper” and dark “warm charcoal” palettes.
+   5. Light “clean paper” and dark “cool charcoal” with academic blue accents.
    6. Print/PDF friendly: avoid breaking figures, tables and headings.
 
    The theme is intentionally self-contained. It replaces the old
@@ -54,77 +54,77 @@ settings:
    -------------------------------------------------------------------------- */
 
 body.theme-light {
-  --background-primary: #fbf9f4;
-  --background-primary-alt: #f6f2ea;
-  --background-secondary: #f1ece1;
-  --background-secondary-alt: #e9e2d4;
-  --background-tertiary: #e3dbcb;
-  --background-modifier-border: #d8cfbd;
-  --background-modifier-border-hover: #c5b9a3;
-  --background-modifier-border-focus: #0f766e;
-  --background-modifier-hover: rgba(15, 118, 110, 0.075);
-  --background-modifier-active-hover: rgba(15, 118, 110, 0.12);
-  --background-modifier-form-field: #fffdf8;
-  --background-modifier-form-field-highlighted: #fffaf0;
-  --background-modifier-box-shadow: rgba(35, 39, 46, 0.12);
+  --background-primary: #fcfdfe;
+  --background-primary-alt: #f8f9fa;
+  --background-secondary: #f8f9fa;
+  --background-secondary-alt: #f1f4f8;
+  --background-tertiary: #eaecf0;
+  --background-modifier-border: #d0d7de;
+  --background-modifier-border-hover: #c8ccd1;
+  --background-modifier-border-focus: #1d5fa7;
+  --background-modifier-hover: rgba(29, 95, 167, 0.075);
+  --background-modifier-active-hover: rgba(29, 95, 167, 0.12);
+  --background-modifier-form-field: #ffffff;
+  --background-modifier-form-field-highlighted: #f8f9fa;
+  --background-modifier-box-shadow: rgba(32, 33, 34, 0.12);
   --background-modifier-success: #dcfce7;
   --background-modifier-error: #fee2e2;
   --background-modifier-error-rgb: 185, 28, 28;
 
-  --text-normal: #23272e;
-  --text-muted: #5b6470;
-  --text-faint: #8a929c;
+  --text-normal: #202122;
+  --text-muted: #54595d;
+  --text-faint: #72777d;
   --text-on-accent: #ffffff;
-  --text-on-accent-inverted: #23272e;
-  --text-accent: #0f766e;
-  --text-accent-hover: #115e59;
-  --text-selection: rgba(15, 118, 110, 0.16);
+  --text-on-accent-inverted: #202122;
+  --text-accent: #1d5fa7;
+  --text-accent-hover: #164b86;
+  --text-selection: rgba(29, 95, 167, 0.16);
   --text-highlight-bg: rgba(245, 158, 11, 0.24);
 
-  --interactive-accent: #0f766e;
-  --interactive-accent-hover: #115e59;
-  --interactive-accent-rgb: 15, 118, 110;
-  --interactive-normal: #f1ece1;
-  --interactive-hover: #e9e2d4;
+  --interactive-accent: #1d5fa7;
+  --interactive-accent-hover: #164b86;
+  --interactive-accent-rgb: 29, 95, 167;
+  --interactive-normal: #f1f4f8;
+  --interactive-hover: #eaecf0;
   --interactive-success: #15803d;
 
-  --link-color: #0f6b66;
-  --link-color-hover: #0b4f4b;
-  --link-external-color: #0f6b66;
-  --link-external-color-hover: #0b4f4b;
+  --link-color: #1d5fa7;
+  --link-color-hover: #164b86;
+  --link-external-color: #245ea8;
+  --link-external-color-hover: #164b86;
   --link-unresolved-color: #b45309;
   --link-unresolved-opacity: 0.82;
 
-  --tag-background: rgba(15, 118, 110, 0.10);
-  --tag-background-hover: rgba(15, 118, 110, 0.17);
-  --tag-color: #0f5f5a;
-  --tag-color-hover: #0b4f4b;
+  --tag-background: rgba(29, 95, 167, 0.10);
+  --tag-background-hover: rgba(29, 95, 167, 0.17);
+  --tag-color: #1d5fa7;
+  --tag-color-hover: #164b86;
 
-  --code-background: #f1ece1;
+  --code-background: #f1f4f8;
   --code-normal: #9a3412;
-  --code-comment: #7c8794;
-  --code-function: #0f766e;
+  --code-comment: #72777d;
+  --code-function: #1d5fa7;
   --code-important: #b91c1c;
   --code-keyword: #7c3aed;
   --code-operator: #b45309;
   --code-property: #1d4ed8;
-  --code-punctuation: #5b6470;
+  --code-punctuation: #54595d;
   --code-string: #15803d;
   --code-tag: #b45309;
   --code-value: #9a3412;
 
-  --blockquote-border-color: #0f766e;
-  --blockquote-background-color: #f1ece1;
-  --table-border-color: #d8cfbd;
-  --table-header-background: #efe8da;
-  --table-row-background-hover: rgba(15, 118, 110, 0.065);
-  --table-row-alt-background: rgba(35, 39, 46, 0.022);
+  --blockquote-border-color: #1d5fa7;
+  --blockquote-background-color: #f8f9fa;
+  --table-border-color: #d0d7de;
+  --table-header-background: #f1f4f8;
+  --table-row-background-hover: rgba(29, 95, 167, 0.065);
+  --table-row-alt-background: rgba(32, 33, 34, 0.022);
 
-  --h1-color: #1f2937;
-  --h2-color: #1f2937;
-  --h3-color: #0f5f5a;
-  --h4-color: #5b6470;
-  --hr-color: #d8cfbd;
+  --h1-color: #202122;
+  --h2-color: #202122;
+  --h3-color: #1d5fa7;
+  --h4-color: #54595d;
+  --hr-color: #d0d7de;
   --scrollbar-thumb-bg: rgba(35, 39, 46, 0.16);
   --scrollbar-active-thumb-bg: rgba(35, 39, 46, 0.28);
 
@@ -162,81 +162,81 @@ body.theme-light {
 }
 
 body.theme-dark {
-  --background-primary: #17191d;
-  --background-primary-alt: #1b1e23;
-  --background-secondary: #1e2228;
-  --background-secondary-alt: #242932;
+  --background-primary: #181b20;
+  --background-primary-alt: #1e2229;
+  --background-secondary: #1e2229;
+  --background-secondary-alt: #242933;
   --background-tertiary: #2a303a;
-  --background-modifier-border: #2e343d;
-  --background-modifier-border-hover: #3d4550;
-  --background-modifier-border-focus: #5eead4;
-  --background-modifier-hover: rgba(94, 234, 212, 0.07);
-  --background-modifier-active-hover: rgba(94, 234, 212, 0.12);
-  --background-modifier-form-field: #1b1e23;
-  --background-modifier-form-field-highlighted: #222731;
+  --background-modifier-border: #303640;
+  --background-modifier-border-hover: #38414e;
+  --background-modifier-border-focus: #6cb0ff;
+  --background-modifier-hover: rgba(108, 176, 255, 0.07);
+  --background-modifier-active-hover: rgba(108, 176, 255, 0.12);
+  --background-modifier-form-field: #1e2229;
+  --background-modifier-form-field-highlighted: #242933;
   --background-modifier-box-shadow: rgba(0, 0, 0, 0.35);
   --background-modifier-success: #14351f;
   --background-modifier-error: #3a1717;
   --background-modifier-error-rgb: 248, 113, 113;
 
-  --text-normal: #d8dce3;
-  --text-muted: #9aa3b2;
-  --text-faint: #6f7887;
-  --text-on-accent: #10221f;
-  --text-on-accent-inverted: #d8dce3;
-  --text-accent: #5eead4;
-  --text-accent-hover: #99f6e4;
-  --text-selection: rgba(94, 234, 212, 0.16);
+  --text-normal: #e6edf3;
+  --text-muted: #8b949e;
+  --text-faint: #6e7681;
+  --text-on-accent: #0d1117;
+  --text-on-accent-inverted: #e6edf3;
+  --text-accent: #6cb0ff;
+  --text-accent-hover: #8ec5ff;
+  --text-selection: rgba(108, 176, 255, 0.16);
   --text-highlight-bg: rgba(245, 158, 11, 0.24);
 
-  --interactive-accent: #5eead4;
-  --interactive-accent-hover: #99f6e4;
-  --interactive-accent-rgb: 94, 234, 212;
-  --interactive-normal: #242932;
+  --interactive-accent: #6cb0ff;
+  --interactive-accent-hover: #8ec5ff;
+  --interactive-accent-rgb: 108, 176, 255;
+  --interactive-normal: #242933;
   --interactive-hover: #2a303a;
   --interactive-success: #4ade80;
 
-  --link-color: #7dd3fc;
-  --link-color-hover: #bae6fd;
-  --link-external-color: #7dd3fc;
-  --link-external-color-hover: #bae6fd;
+  --link-color: #6cb0ff;
+  --link-color-hover: #8ec5ff;
+  --link-external-color: #58a6ff;
+  --link-external-color-hover: #8ec5ff;
   --link-unresolved-color: #fbbf24;
 
-  --tag-background: rgba(94, 234, 212, 0.10);
-  --tag-background-hover: rgba(94, 234, 212, 0.17);
-  --tag-color: #99f6e4;
-  --tag-color-hover: #ccfbf1;
+  --tag-background: rgba(108, 176, 255, 0.10);
+  --tag-background-hover: rgba(108, 176, 255, 0.17);
+  --tag-color: #8ec5ff;
+  --tag-color-hover: #b3d4ff;
 
-  --code-background: #111318;
+  --code-background: #1e2229;
   --code-normal: #fca5a5;
-  --code-comment: #7c8794;
-  --code-function: #5eead4;
+  --code-comment: #8b949e;
+  --code-function: #6cb0ff;
   --code-important: #fca5a5;
   --code-keyword: #c4b5fd;
   --code-operator: #fbbf24;
   --code-property: #93c5fd;
-  --code-punctuation: #9aa3b2;
+  --code-punctuation: #8b949e;
   --code-string: #86efac;
   --code-tag: #fbbf24;
   --code-value: #fca5a5;
 
-  --blockquote-border-color: #5eead4;
-  --blockquote-background-color: #1e2228;
-  --table-border-color: #2e343d;
-  --table-header-background: #222731;
-  --table-row-background-hover: rgba(94, 234, 212, 0.06);
+  --blockquote-border-color: #6cb0ff;
+  --blockquote-background-color: #1e2229;
+  --table-border-color: #303640;
+  --table-header-background: #242933;
+  --table-row-background-hover: rgba(108, 176, 255, 0.06);
   --table-row-alt-background: rgba(255, 255, 255, 0.025);
 
-  --h1-color: #f1f5f9;
-  --h2-color: #f1f5f9;
-  --h3-color: #99f6e4;
-  --h4-color: #9aa3b2;
-  --hr-color: #2e343d;
+  --h1-color: #e6edf3;
+  --h2-color: #e6edf3;
+  --h3-color: #8ec5ff;
+  --h4-color: #8b949e;
+  --hr-color: #303640;
   --scrollbar-thumb-bg: rgba(216, 220, 227, 0.16);
   --scrollbar-active-thumb-bg: rgba(216, 220, 227, 0.28);
 
-  --hb-vector-sidebar: #1e2024;
-  --hb-vector-status-bg: #1e2024;
+  --hb-vector-sidebar: #1e2229;
+  --hb-vector-status-bg: #1e2229;
   --hb-vector-status-border: #363b44;
   --hb-vector-panel-border: #2a2f38;
   --hb-vector-ui-border: #3a404a;
@@ -248,7 +248,7 @@ body.theme-dark {
   --hb-vector-nav-file: #79b0f8;
   --hb-vector-nav-file-hover: #a8d0ff;
   --hb-vector-nav-active-bg: #252d3a;
-  --hb-vector-settings-bg: #1b1e23;
+  --hb-vector-settings-bg: #181b20;
   --hb-vector-settings-nav-active: #2a2f38;
   --hb-vector-input-hover: #262b33;
   --hb-vector-panel-muted: #22262c;
@@ -1084,7 +1084,7 @@ body.theme-dark .markdown-rendered .hb-caption {
    14. Workspace chrome — Vector-style app UI (not note body)
    -------------------------------------------------------------------------- */
 
-/* --- Paper surface (warm 1.0.1) vs chrome --- */
+/* --- Reading surface (clean paper) vs chrome --- */
 .markdown-reading-view,
 .markdown-source-view.mod-cm6 .cm-scroller,
 .workspace-leaf-content[data-type="markdown"] .view-content {
@@ -1360,6 +1360,18 @@ button.mod-cta {
 .prompt-input {
   border-radius: 0;
   box-shadow: none;
+}
+
+.workspace-sidedock-vault-profile {
+  background-color: var(--background-secondary);
+  border-top: 1px solid var(--background-modifier-border);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.workspace-sidedock-vault-profile .mod-cta,
+.workspace-sidedock-vault-profile .mod-settings {
+  border-color: var(--background-modifier-border);
 }
 
 /* --------------------------------------------------------------------------
