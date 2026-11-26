@@ -6,38 +6,32 @@ An Obsidian theme for engineering handbooks and technical notes. It is tuned for
 
 ## Overview
 
-Handbook Research provides warm light (“paper”) and warm dark (“charcoal”) palettes. Body text uses serif fonts; headings and UI use sans-serif fonts. The default reading measure is about 1040 px (adjustable via Style Settings or `cssclasses` width presets).
+**Note body (1.0.1 unchanged):** warm “paper” / “charcoal” palettes, serif body, ~1040 px measure, line-height ~1.8, heading hierarchy, sticky tables, MathJax, caption bars, print rules.
 
-This repository is prepared for the Obsidian Community Themes directory. Until it is published there, install manually from the latest [GitHub Release](https://github.com/chenhan12306/handbook-research/releases).
+**What’s new in 1.0.2:** a restrained **encyclopedia-style workspace chrome** (sidebars, ribbon, tabs, view header, status bar, command palette) with cooler neutral surfaces and 1px borders — **without** changing the warm reading surface or copying the Wikipedia community theme. Also includes CSS lint cleanups (`!important` / `:has` reductions) with **no intended change** to body typography colors.
+
+Design cues from public wiki-style UIs (flat toolbars, thin borders) were applied in spirit only; **no** Wikipedia CSS, fonts, or logos were used.
 
 ## Features
 
-- **Light and dark modes** — full token sets in `body.theme-light` and `body.theme-dark`
-- **Heading hierarchy** — slightly tighter type scale; H2 left bar + light section rule; H3 subtle underline for handbook skimming
-- **Tables** — default academic three-line tables with sticky headers; optional **Handbook lookup** mode for denser borders and tighter rows
-- **Math** — block and inline formulas with minimal chrome and scroll for wide expressions
-- **Images and captions** — framed images; caption bar styling for lines starting with a bold figure label; optional `hb-wide-images` class
-- **Links, tags, highlights** — dashed internal links, pill tags, gradient highlights
-- **Print / PDF** — rules to reduce bad breaks around figures, tables, and headings
-- **Style Settings** (requires [Style Settings](https://github.com/mgmeyers/obsidian-style-settings)) — line/image sliders; **Handbook lookup mode** toggle (denser tables; compact info callouts)
-- **Optional note classes** — `hb-dense-tables` (per-note compact tables); `> [!hb-infobox]` or `.hb-infobox` for symbol/property summary boxes
-
-Default profile remains **academic long-form reading** (~1040 px measure, serif body, line-height ~1.8). Wikipedia-inspired ideas (clearer scan lines, quieter external links) were applied in spirit only — no third-party theme CSS or fonts were copied.
+- **Light and dark modes** — body tokens in `body.theme-light` / `body.theme-dark` (teal accent, unchanged)
+- **Academic reading surface** — same as release **1.0.1** (headings, tables, math, captions, images)
+- **Workspace chrome** — ribbon (~36px), tab bar with accent underline on active tab, muted file tree / outline hovers, lighter scrollbars, flat modals & command palette
+- **Style Settings** — line width and image size sliders ([plugin](https://github.com/mgmeyers/obsidian-style-settings))
+- **Per-note classes** — `hb-width-narrow|normal|wide|full`, `hb-wide-images`
 
 ## Installation
 
-1. Download `theme.css` and `manifest.json` from the [latest release](https://github.com/chenhan12306/handbook-research/releases) whose tag matches `manifest.json` `version` (e.g. `1.0.2` after publish).
+1. Download `theme.css` and `manifest.json` from the [latest release](https://github.com/chenhan12306/handbook-research/releases) whose tag matches `manifest.json` `version` (e.g. **1.0.1** today; **1.0.2** after you publish it).
 2. Create `.obsidian/themes/Handbook Research/` in your vault.
 3. Copy both files into that folder.
-4. In Obsidian: **Settings → Appearance → Themes → Handbook Research**.
-
-The theme folder name must match `name` in `manifest.json` (`Handbook Research`).
+4. **Settings → Appearance → Themes → Handbook Research**.
 
 ## Screenshots
 
 | File | Description |
 |------|-------------|
-| **`screenshot.png`** (repository root) | Real Obsidian capture (512×288). Sidebar/top areas were cropped; the body was **privacy-redacted** with pixelation. Colors and layout reflect the theme; redaction obscures typography detail. **Use this path in the community directory form:** `screenshot.png`. |
+| **`screenshot.png`** (repository root) | Real Obsidian capture (512×288), privacy-redacted. Community form path: `screenshot.png`. |
 | `preview/*` | CSS/HTML approximations only — not substitutes for `screenshot.png`. |
 
 ## Repository layout
@@ -53,10 +47,10 @@ preview/
 
 ## Credits
 
-Original theme by Han Chen. Design goals are documented in the header comment of `theme.css`. No third-party theme code is bundled.
+Original theme by Han Chen. Header comment in `theme.css` describes reading goals. No third-party theme CSS bundled.
 
 ---
 
 ## 中文说明
 
-面向工程手册与技术笔记的 Obsidian 主题，强调长文阅读、表格查阅与双语排版。浅色「暖纸」/ 深色「暖炭」双模式；衬线正文 + 无衬线标题；粘性表头、图注栏、Style Settings 行宽与图片尺寸等。安装方式与上文 English **Installation** 相同；社区表单截图路径：`screenshot.png`。
+正文阅读体验与 **1.0.1 发布版一致**（暖纸/暖炭、青绿强调、行宽与表格/公式/图注）。**1.0.2** 主要优化 **Obsidian 程序界面**（侧栏、标签、Ribbon、状态栏等）的克制百科工具栏风格；**不**复制 Wikipedia 主题代码。Style Settings 与 `hb-width-*` / `hb-wide-images` 类名用法不变。社区截图路径仍为 `screenshot.png`。
