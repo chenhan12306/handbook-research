@@ -131,8 +131,19 @@ body.theme-light {
   --font-text: "Source Serif 4", "LXGW WenKai", "霞鹜文楷", "Noto Serif SC",
     "Source Han Serif SC", "Songti SC", "SimSun", Georgia, "Times New Roman",
     serif;
-  --font-interface: "Inter", "Noto Sans SC", "Microsoft YaHei", "Segoe UI",
-    "PingFang SC", sans-serif;
+  --font-interface: var(
+    --font-interface-override,
+    "Segoe UI Variable Text",
+    "Segoe UI",
+    "Microsoft YaHei UI",
+    "PingFang SC",
+    "Hiragino Sans GB",
+    "Noto Sans SC",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Inter",
+    sans-serif
+  );
   --font-monospace: "JetBrains Mono", "Cascadia Code", "Consolas", "Menlo",
     monospace;
 
@@ -141,6 +152,10 @@ body.theme-light {
   --line-height-normal: 1.8;
   --p-spacing: 0.9em;
   --font-text-size: 16px;
+
+  --nav-indentation-guide-color: var(--hb-nav-indent-guide);
+  --indentation-guide-color: var(--hb-nav-indent-guide);
+  --indentation-guide-color-active: var(--hb-nav-indent-guide-active);
 
   --hb-vector-sidebar: #f8f9fa;
   --hb-vector-status-bg: #f8f9fa;
@@ -151,9 +166,12 @@ body.theme-light {
   --hb-vector-tab-top: #ffffff;
   --hb-vector-tab-bottom: #dceaf6;
   --hb-vector-tab-line: #a7d7f9;
-  --hb-vector-nav-folder: #202122;
-  --hb-vector-nav-file: #0645ad;
-  --hb-vector-nav-file-hover: #0b0080;
+  --hb-nav-indent-guide: #dde3ea;
+  --hb-nav-indent-guide-active: #c5ced8;
+  --hb-nav-folder-nested: #32383f;
+  --hb-vector-nav-folder: #1f2328;
+  --hb-vector-nav-file: #1d5fa7;
+  --hb-vector-nav-file-hover: #164b86;
   --hb-vector-nav-active-bg: #eef4fb;
   --hb-vector-settings-bg: #ffffff;
   --hb-vector-settings-nav-active: #eaecf0;
@@ -244,14 +262,21 @@ body.theme-dark {
   --hb-vector-tab-top: #1c1f24;
   --hb-vector-tab-bottom: #222c38;
   --hb-vector-tab-line: #354b66;
-  --hb-vector-nav-folder: #d5dae2;
-  --hb-vector-nav-file: #79b0f8;
-  --hb-vector-nav-file-hover: #a8d0ff;
+  --hb-nav-indent-guide: #2d3440;
+  --hb-nav-indent-guide-active: #3d4756;
+  --hb-nav-folder-nested: #aeb6c2;
+  --hb-vector-nav-folder: #d8dee9;
+  --hb-vector-nav-file: #6cb0ff;
+  --hb-vector-nav-file-hover: #8ec5ff;
   --hb-vector-nav-active-bg: #252d3a;
   --hb-vector-settings-bg: #181b20;
   --hb-vector-settings-nav-active: #2a2f38;
   --hb-vector-input-hover: #262b33;
   --hb-vector-panel-muted: #22262c;
+
+  --nav-indentation-guide-color: var(--hb-nav-indent-guide);
+  --indentation-guide-color: var(--hb-nav-indent-guide);
+  --indentation-guide-color-active: var(--hb-nav-indent-guide-active);
 }
 
 /* --------------------------------------------------------------------------
@@ -273,7 +298,14 @@ body {
   --tab-radius-active: 0px;
   --tab-curve: 0px;
   --checkbox-radius: 0px;
-  --nav-indentation-guide-width: 0px;
+  --nav-indentation-guide-width: 1px;
+  --nav-item-size: 0.8125rem;
+  --nav-item-children-padding-start: 16px;
+  --nav-item-children-margin-start: 12px;
+  --nav-item-weight: 400;
+  --nav-item-weight-active: 500;
+  --nav-collapse-icon-color: var(--text-faint);
+  --nav-collapse-icon-color-collapsed: var(--text-faint);
   --file-line-width: 1040px;
   --hb-line-width: 1040px;
   --hb-image-width: 640px;
@@ -285,8 +317,19 @@ body {
   --font-text: "Source Serif 4", "LXGW WenKai", "霞鹜文楷", "Noto Serif SC",
     "Source Han Serif SC", "Songti SC", "SimSun", Georgia, "Times New Roman",
     serif;
-  --font-interface: "Inter", "Noto Sans SC", "Microsoft YaHei", "Segoe UI",
-    "PingFang SC", sans-serif;
+  --font-interface: var(
+    --font-interface-override,
+    "Segoe UI Variable Text",
+    "Segoe UI",
+    "Microsoft YaHei UI",
+    "PingFang SC",
+    "Hiragino Sans GB",
+    "Noto Sans SC",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Inter",
+    sans-serif
+  );
   --font-monospace: "JetBrains Mono", "Cascadia Code", "Consolas", "Menlo",
     monospace;
 }
@@ -955,24 +998,49 @@ body.theme-dark .markdown-rendered .hb-caption {
    10. Sidebar, file explorer, tabs, search and outline
    -------------------------------------------------------------------------- */
 
+.nav-files-container,
+.workspace-leaf-content[data-type="outline"] .outline,
+.workspace-leaf-content[data-type="search"] .search-results-children {
+  font-family: var(--font-interface);
+  font-size: var(--nav-item-size);
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
 .nav-file-title,
 .nav-folder-title {
   font-family: var(--font-interface);
-  font-size: 0.86em;
+  font-size: var(--nav-item-size);
+  line-height: 1.45;
+  letter-spacing: 0.01em;
   border-radius: 0;
-  padding-inline: 0.45em;
+  padding-block: 0.2em;
+  padding-inline: 0.5em;
+  min-height: calc(var(--nav-item-size) * 1.45);
 }
 
 .nav-folder-title {
-  font-weight: 650;
+  font-weight: 500;
 }
 
-/* File-tree chrome colors: see §14 Workspace chrome (Vector). */
+.nav-file-title {
+  font-weight: 400;
+}
+
+.nav-file-title.is-active {
+  font-weight: 500;
+}
+
+/* File-tree chrome colors and nesting: see §14 Workspace chrome (Vector). */
 
 .nav-file-tag {
   font-family: var(--font-interface);
-  font-size: 0.68em;
-  border-radius: 999px;
+  font-size: 0.625rem;
+  font-weight: 500;
+  line-height: 1.2;
+  border-radius: 2px;
+  opacity: 0.85;
 }
 
 .workspace-tab-header-inner-title {
@@ -988,7 +1056,9 @@ body.theme-dark .markdown-rendered .hb-caption {
 
 .search-result-file-title {
   font-family: var(--font-interface);
-  font-weight: 650;
+  font-size: var(--nav-item-size);
+  font-weight: 500;
+  line-height: 1.45;
 }
 
 .search-result-file-matched-text {
@@ -1022,14 +1092,15 @@ body.theme-dark .markdown-rendered .hb-caption {
 
 .outline .tree-item-inner {
   font-family: var(--font-interface);
-  font-size: 0.84em;
-  letter-spacing: 0.005em;
+  font-size: var(--nav-item-size);
+  letter-spacing: 0.01em;
+  line-height: 1.45;
 }
 
 .outline .tree-item-self.is-active {
   color: var(--interactive-accent);
   background: color-mix(in srgb, var(--interactive-accent) 8%, transparent);
-  font-weight: 650;
+  font-weight: 500;
 }
 
 .outline .tree-item-children {
@@ -1178,21 +1249,35 @@ body.theme-dark .markdown-rendered .hb-caption {
   box-shadow: none;
 }
 
-.nav-folder-children {
-  border-left: 0;
-  margin-left: 0;
-  padding-left: 0;
+/* Do not zero .nav-folder-children padding — Obsidian applies
+   --nav-item-children-* and --nav-indentation-guide-* on the file tree. */
+.nav-files-container > .nav-folder {
+  margin-block-end: 2px;
 }
 
-.tree-item-children {
-  border-left: 0;
+.nav-files-container .nav-folder-children:hover {
+  --nav-indentation-guide-color: var(--hb-nav-indent-guide-active);
+  --indentation-guide-color: var(--hb-nav-indent-guide-active);
+}
+
+.nav-folder-collapse-indicator,
+.tree-item-collapse-indicator {
+  color: var(--nav-collapse-icon-color);
+}
+
+.nav-folder-collapse-indicator {
+  opacity: 0.92;
 }
 
 .nav-folder-title {
   color: var(--hb-vector-nav-folder);
-  font-weight: 600;
+  font-weight: 500;
   border-radius: 0;
   background: transparent;
+}
+
+.nav-folder-children .nav-folder-title {
+  color: var(--hb-nav-folder-nested);
 }
 
 .nav-folder-title:hover {
@@ -1203,7 +1288,7 @@ body.theme-dark .markdown-rendered .hb-caption {
   color: var(--hb-vector-nav-file);
   border-radius: 0;
   background: transparent;
-  font-weight: 450;
+  font-weight: 400;
 }
 
 .nav-file-title:hover {
@@ -1216,7 +1301,7 @@ body.theme-dark .markdown-rendered .hb-caption {
 .nav-file-title.is-active {
   background: var(--hb-vector-nav-active-bg);
   color: var(--hb-vector-nav-file-hover);
-  font-weight: 650;
+  font-weight: 500;
   text-decoration: none;
 }
 
@@ -1237,7 +1322,10 @@ body.theme-dark .markdown-rendered .hb-caption {
 }
 
 .outline .tree-item-children {
-  border-left: 1px solid var(--hb-vector-panel-border);
+  margin-inline-start: 0.75em;
+  padding-inline-start: 0.5em;
+  border-inline-start: var(--nav-indentation-guide-width) solid
+    var(--nav-indentation-guide-color);
 }
 
 .outline .tree-item-self:hover {
